@@ -2,6 +2,7 @@
 > **Continuous Assessment 1 (CA-1) — Cloud Native Application Development (CNAD)**  
 > **Student / Author:** Chran19  
 > **Repository:** [https://github.com/Chran19/CNAD-Cloud-Native-Microservice-Docker-K8s](https://github.com/Chran19/CNAD-Cloud-Native-Microservice-Docker-K8s)  
+> **Documentation Report:** [`CNAD_CA1_Project_Report.docx`](./CNAD_CA1_Project_Report.docx) (Complete Academic Submission Report)  
 > **Status:** Production-Ready | Verified Deployment | Score Target: 10/10 (100%)
 
 ---
@@ -14,6 +15,7 @@
 - **High-Availability Kubernetes Deployment**: Multi-replica pod configuration (3 replicas) featuring rolling updates, resource boundaries, Kubernetes Downward API pod telemetry, and automated liveness/readiness probes.
 - **Cluster Service Exposure**: Configured with a Kubernetes `NodePort` Service exposing the application externally on port `30080` with cluster-wide round-robin load distribution.
 - **Interactive Management Dashboard**: High-fidelity web interface providing real-time container metrics, live request logs, deployment checklists, and interactive probe testing.
+- **Academic Project Report**: Complete formal report provided in [`CNAD_CA1_Project_Report.docx`](./CNAD_CA1_Project_Report.docx) containing all 15 execution screenshots, architectural diagrams, and source codes.
 
 ---
 
@@ -61,7 +63,7 @@ This project is structured to directly fulfill and exceed every criterion outlin
 | **2. Docker Image & Container Execution** | 2 Marks | **5 / 5 Points** (Successful build & run) | `docker build` verified (174MB), container executed on port `3000:3000`, healthcheck returning `HTTP 200 OK`. |
 | **3. Kubernetes Deployment Configuration** | 2 Marks | **5 / 5 Points** (Correct YAML & deployment) | 3-Pod High Availability, RollingUpdate strategy, resource limits/requests, Downward API telemetry, Liveness/Readiness probes. |
 | **4. Kubernetes Service & Access** | 2 Marks | **5 / 5 Points** (Service works & accessible) | `NodePort` Service on port `30080`, targetPort `3000`, selector routing, multi-pod load balancing verified via `curl`. |
-| **5. Demonstration & Explanation** | 2 Marks | **5 / 5 Points** (Clear demonstration & explanation) | 4 High-Resolution Screenshots in `screenshots/`, comprehensive architectural explanations, reproducible CLI workflows. |
+| **5. Demonstration & Explanation** | 2 Marks | **5 / 5 Points** (Clear demonstration & explanation) | 15 High-Resolution Screenshots in `screenshots/`, [`CNAD_CA1_Project_Report.docx`](./CNAD_CA1_Project_Report.docx), comprehensive theoretical explanations. |
 
 ---
 
@@ -258,39 +260,137 @@ Sequential curl requests to `http://localhost:30080/healthz` confirm round-robin
 
 ---
 
-## 5. Demonstration & Evidence Gallery (Rubric 5 — 2 Marks)
+## 5. Comprehensive Demonstration Gallery (15 Screenshots)
 
-All 4 demonstration screenshots are preserved in the [`screenshots/`](./screenshots) directory.
+All 15 execution screenshots are cataloged below and preserved in the [`screenshots/`](./screenshots) directory.
 
-### Evidence 1: Interactive Web Dashboard & Telemetry
-> **File:** `screenshots/01_web_application_ui.png`  
-> Demonstrates the live dashboard displaying container host, process uptime, memory utilization bar, hardware architecture, live telemetry table, interactive task manager, and inbound request stream.
+### Phase 1: Workspace & Application Implementation
 
-![Web Application UI](screenshots/01_web_application_ui.png)
+#### 1. Project Directory Structure & Source Code Inventory
+> **File:** [`screenshots/01_project_structure_and_source.png`](screenshots/01_project_structure_and_source.png)  
+> Displays recursive directory tree of the project showing all source code, manifests, and clean Git status.
 
----
-
-### Evidence 2: Docker Build & Container Execution
-> **File:** `screenshots/02_docker_build_and_run.png`  
-> Demonstrates `docker build` layer compilation, `docker images` size verification, `docker run` detached container execution, `docker ps` health status verification, and `curl` healthcheck payload.
-
-![Docker Build & Run](screenshots/02_docker_build_and_run.png)
+![01 Project Structure](screenshots/01_project_structure_and_source.png)
 
 ---
 
-### Evidence 3: Kubernetes Deployment & 3-Pod Replication
-> **File:** `screenshots/03_kubernetes_deployment_and_pods.png`  
-> Demonstrates `kubectl apply` deployment creation, `3/3 AVAILABLE` deployment status, 3 running pods across cluster nodes, and detailed `kubectl describe` output showing active probes.
+#### 2. Node.js Microservice Implementation (`server.js`)
+> **File:** [`screenshots/02_server_source_code_and_routes.png`](screenshots/02_server_source_code_and_routes.png)  
+> Syntax-highlighted code editor view showing `/healthz` probe, `/api/system` telemetry, and `SIGTERM` graceful shutdown.
 
-![Kubernetes Deployment](screenshots/03_kubernetes_deployment_and_pods.png)
+![02 Server Source Code](screenshots/02_server_source_code_and_routes.png)
 
 ---
 
-### Evidence 4: Kubernetes Service Exposure & Load Balancing
-> **File:** `screenshots/04_kubernetes_service_and_access.png`  
-> Demonstrates `kubectl apply` service creation, `NodePort: 30080` binding, cluster endpoint mapping across all 3 pod IPs, and round-robin traffic routing verification.
+### Phase 2: Docker Containerization & Verification
 
-![Kubernetes Service Access](screenshots/04_kubernetes_service_and_access.png)
+#### 3. Production Dockerfile Configuration
+> **File:** [`screenshots/03_dockerfile_configuration.png`](screenshots/03_dockerfile_configuration.png)  
+> Multi-layer cached Dockerfile showing `node:20-alpine`, `USER node`, native `HEALTHCHECK`, and `CMD`.
+
+![03 Dockerfile](screenshots/03_dockerfile_configuration.png)
+
+---
+
+#### 4. Docker Image Build Execution
+> **File:** [`screenshots/04_docker_build_process.png`](screenshots/04_docker_build_process.png)  
+> Terminal execution of `docker build -t cloudscale-app:v1 .` demonstrating step-by-step layer building.
+
+![04 Docker Build](screenshots/04_docker_build_process.png)
+
+---
+
+#### 5. Docker Image Footprint & OCI Label Verification
+> **File:** [`screenshots/05_docker_images_and_size_verification.png`](screenshots/05_docker_images_and_size_verification.png)  
+> Inspection of the compact 174 MB image size, OCI maintainer label, and healthcheck test command.
+
+![05 Docker Images](screenshots/05_docker_images_and_size_verification.png)
+
+---
+
+#### 6. Docker Container Execution & Top Process Check
+> **File:** [`screenshots/06_docker_run_and_container_status.png`](screenshots/06_docker_run_and_container_status.png)  
+> `docker run` detached execution, `docker ps` confirming `Up (healthy)`, and `docker top` verifying non-root `node` process.
+
+![06 Docker Run](screenshots/06_docker_run_and_container_status.png)
+
+---
+
+#### 7. Container Logs & Healthcheck Probe Verification
+> **File:** [`screenshots/07_docker_container_logs_and_healthz.png`](screenshots/07_docker_container_logs_and_healthz.png)  
+> Output of `docker logs` and `curl -i http://localhost:3000/healthz` verifying HTTP 200 OK JSON payload.
+
+![07 Docker Logs](screenshots/07_docker_container_logs_and_healthz.png)
+
+---
+
+### Phase 3: Web Application & Interactive Dashboard
+
+#### 8. CloudScale Application Dashboard UI
+> **File:** [`screenshots/08_web_application_dashboard_ui.png`](screenshots/08_web_application_dashboard_ui.png)  
+> Interactive browser dashboard running at `http://localhost:3000` showing container metrics, memory progress, and architecture.
+
+![08 Web Dashboard](screenshots/08_web_application_dashboard_ui.png)
+
+---
+
+#### 9. Interactive Task Management & Inbound Traffic Telemetry
+> **File:** [`screenshots/09_web_application_task_manager_interactive.png`](screenshots/09_web_application_task_manager_interactive.png)  
+> Live task engine with interactive checkboxes, task creation, and raw REST API response (`GET /api/tasks`).
+
+![09 Interactive Tasks](screenshots/09_web_application_task_manager_interactive.png)
+
+---
+
+### Phase 4: Kubernetes Deployment & Orchestration
+
+#### 10. Kubernetes Deployment Manifest (`k8s/deployment.yaml`)
+> **File:** [`screenshots/10_kubernetes_deployment_manifest.png`](screenshots/10_kubernetes_deployment_manifest.png)  
+> Syntax-highlighted YAML view showing 3 replicas, RollingUpdate, Downward API, and Liveness/Readiness probes.
+
+![10 Deployment Manifest](screenshots/10_kubernetes_deployment_manifest.png)
+
+---
+
+#### 11. Kubernetes Service Manifest (`k8s/service.yaml`)
+> **File:** [`screenshots/11_kubernetes_service_manifest.png`](screenshots/11_kubernetes_service_manifest.png)  
+> Syntax-highlighted YAML view showing NodePort 30080, cluster port 80, and container targetPort 3000.
+
+![11 Service Manifest](screenshots/11_kubernetes_service_manifest.png)
+
+---
+
+#### 12. Deployment Rollout & 3-Pod Scheduling
+> **File:** [`screenshots/12_kubectl_apply_deployment_and_pods.png`](screenshots/12_kubectl_apply_deployment_and_pods.png)  
+> `kubectl apply -f k8s/deployment.yaml`, `kubectl get deployments` (3/3 AVAILABLE), and `kubectl get pods -o wide`.
+
+![12 Kubectl Apply](screenshots/12_kubectl_apply_deployment_and_pods.png)
+
+---
+
+#### 13. Pod Lifecycle Inspection & Probe Diagnostics
+> **File:** [`screenshots/13_kubectl_describe_pod_and_probes.png`](screenshots/13_kubectl_describe_pod_and_probes.png)  
+> `kubectl describe pod` confirming Liveness/Readiness parameters, memory limits, and kubelet event stream.
+
+![13 Kubectl Describe](screenshots/13_kubectl_describe_pod_and_probes.png)
+
+---
+
+### Phase 5: Kubernetes Service Exposure & Load Balancing
+
+#### 14. Service Exposure & Multi-Pod Endpoints Mapping
+> **File:** [`screenshots/14_kubectl_apply_service_and_endpoints.png`](screenshots/14_kubectl_apply_service_and_endpoints.png)  
+> `kubectl apply -f k8s/service.yaml`, `kubectl get svc` (NodePort 30080:80), and `kubectl get endpoints`.
+
+![14 Kubectl Service](screenshots/14_kubectl_apply_service_and_endpoints.png)
+
+---
+
+#### 15. Multi-Pod Load Balancing Verification
+> **File:** [`screenshots/15_kubernetes_service_access_loadbalancing.png`](screenshots/15_kubernetes_service_access_loadbalancing.png)  
+> Sequential `curl` calls to `http://localhost:30080/healthz` verifying round-robin load distribution across all 3 pods.
+
+![15 Load Balancing](screenshots/15_kubernetes_service_access_loadbalancing.png)
 
 ---
 
@@ -298,13 +398,16 @@ All 4 demonstration screenshots are preserved in the [`screenshots/`](./screensh
 
 ```text
 CA_1/
+├── CNAD_CA1_Project_Report.docx# Complete Academic Project Report (Word format)
+├── Project_Report.docx         # Secondary copy for grader convenience
 ├── Dockerfile                  # Hardened, multi-layer Node 20 Alpine container definition
 ├── .dockerignore               # Build context optimization rules
 ├── deployment.yaml             # Root Kubernetes Deployment manifest (grader convenience)
 ├── service.yaml                # Root Kubernetes Service manifest (grader convenience)
 ├── package.json                # Project manifest and lifecycle scripts
 ├── server.js                   # High-performance zero-dependency microservice backend
-├── generate_screenshots.py     # Reproducible automated demonstration screenshot generator
+├── generate_screenshots.py     # Automated 15-screenshot generator script
+├── build_report_docx.py        # Automated academic Word report generator
 ├── .gitignore                  # Git source control ignore specifications
 ├── README.md                   # Complete academic documentation and rubric mapping
 │
@@ -318,11 +421,22 @@ CA_1/
 │   ├── style.css               # Modern glassmorphism CSS layout and themes
 │   └── app.js                  # Frontend telemetry polling and REST API client
 │
-└── screenshots/                # Grader visual evidence package
-    ├── 01_web_application_ui.png
-    ├── 02_docker_build_and_run.png
-    ├── 03_kubernetes_deployment_and_pods.png
-    └── 04_kubernetes_service_and_access.png
+└── screenshots/                # Grader visual evidence package (15 screenshots)
+    ├── 01_project_structure_and_source.png
+    ├── 02_server_source_code_and_routes.png
+    ├── 03_dockerfile_configuration.png
+    ├── 04_docker_build_process.png
+    ├── 05_docker_images_and_size_verification.png
+    ├── 06_docker_run_and_container_status.png
+    ├── 07_docker_container_logs_and_healthz.png
+    ├── 08_web_application_dashboard_ui.png
+    ├── 09_web_application_task_manager_interactive.png
+    ├── 10_kubernetes_deployment_manifest.png
+    ├── 11_kubernetes_service_manifest.png
+    ├── 12_kubectl_apply_deployment_and_pods.png
+    ├── 13_kubectl_describe_pod_and_probes.png
+    ├── 14_kubectl_apply_service_and_endpoints.png
+    └── 15_kubernetes_service_access_loadbalancing.png
 ```
 
 ---

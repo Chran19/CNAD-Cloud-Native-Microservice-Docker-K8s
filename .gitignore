@@ -15,6 +15,10 @@ pids
 *.seed
 *.pid.lock
 
+# Word temporary lock files
+~$*
+*.tmp
+
 # Operating System Files
 .DS_Store
 Thumbs.db
@@ -34,3 +38,4 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+

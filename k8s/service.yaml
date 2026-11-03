@@ -17,3 +17,4 @@ spec:
     port: 80            # Internal cluster service port
     targetPort: 3000    # Target port on the container inside the pod
     nodePort: 30080     # Static external port exposed on cluster node
+

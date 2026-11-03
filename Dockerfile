@@ -47,3 +47,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
 
 # Launch the microservice using executive array syntax (ensures PID 1 receives SIGTERM signals)
 CMD ["node", "server.js"]
+
