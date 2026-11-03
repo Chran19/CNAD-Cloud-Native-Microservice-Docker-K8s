@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudscale-service
+  labels:
+    app: cloudscale
+    tier: frontend
+spec:
+  # NodePort allows external traffic to access the service via <NodeIP>:<NodePort>
+  type: NodePort
+  selector:
+    # Directs traffic to pods with matching label
+    app: cloudscale
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80            # Internal cluster service port
+    targetPort: 3000    # Target port on the container inside the pod
+    nodePort: 30080     # Static external port exposed on cluster node

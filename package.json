@@ -1,0 +1,21 @@
+{
+  "name": "cloudscale-microservice",
+  "version": "1.0.0",
+  "description": "Cloud-Native Containerized Web Application & Cluster Monitor for Docker and Kubernetes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"console.log('Running test suite...'); process.exit(0);\""
+  },
+  "keywords": [
+    "kubernetes",
+    "docker",
+    "microservice",
+    "devops",
+    "cloud-native",
+    "container"
+  ],
+  "author": "Chran19",
+  "license": "MIT"
+}

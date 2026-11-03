@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudscale-deployment
+  labels:
+    app: cloudscale
+    tier: frontend
+    environment: production
+spec:
+  # High Availability: 3 Pod Replicas
+  replicas: 3
+  # Zero-downtime rolling update strategy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: cloudscale
+  template:
+    metadata:
+      labels:
+        app: cloudscale
+        tier: frontend
+    spec:
+      containers:
+      - name: cloudscale-app
+        image: cloudscale-app:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http-web
+          containerPort: 3000
+          protocol: TCP
+
+        # Resource quotas preventing resource starvation and memory leaks
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 250m
+            memory: 128Mi
+
+        # Kubernetes Downward API: inject cluster telemetry into the application
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+
+        # Liveness Probe: restarts container if it becomes unresponsive or deadlocked
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        # Readiness Probe: controls traffic routing until the container is ready
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 2
+
+        # Pod Security Context (Least Privilege Principle)
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
